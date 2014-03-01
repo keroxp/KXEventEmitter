@@ -21,6 +21,8 @@
 		A6AB559F18C1DFFD0083760F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6AB558118C1DFFD0083760F /* UIKit.framework */; };
 		A6AB55A718C1DFFD0083760F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6AB55A518C1DFFD0083760F /* InfoPlist.strings */; };
 		A6AB55A918C1DFFD0083760F /* KXEventEmitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6AB55A818C1DFFD0083760F /* KXEventEmitterTests.m */; };
+		A6AB55B418C1E0190083760F /* KXCollection.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A6AB55B318C1E0190083760F /* KXCollection.podspec */; };
+		A6AB55B718C1E07F0083760F /* NSObject+KXEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6AB55B618C1E07F0083760F /* NSObject+KXEventEmitter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,9 @@
 		A6AB55A418C1DFFD0083760F /* KXEventEmitterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KXEventEmitterTests-Info.plist"; sourceTree = "<group>"; };
 		A6AB55A618C1DFFD0083760F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6AB55A818C1DFFD0083760F /* KXEventEmitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KXEventEmitterTests.m; sourceTree = "<group>"; };
+		A6AB55B318C1E0190083760F /* KXCollection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KXCollection.podspec; sourceTree = "<group>"; };
+		A6AB55B518C1E07F0083760F /* NSObject+KXEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KXEventEmitter.h"; sourceTree = "<group>"; };
+		A6AB55B618C1E07F0083760F /* NSObject+KXEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KXEventEmitter.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +87,8 @@
 		A6AB557118C1DFFD0083760F = {
 			isa = PBXGroup;
 			children = (
+				A6AB55B218C1E0190083760F /* Classes */,
+				A6AB55B318C1E0190083760F /* KXCollection.podspec */,
 				A6AB558318C1DFFD0083760F /* KXEventEmitter */,
 				A6AB55A218C1DFFD0083760F /* KXEventEmitterTests */,
 				A6AB557C18C1DFFD0083760F /* Frameworks */,
@@ -150,6 +157,15 @@
 				A6AB55A518C1DFFD0083760F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A6AB55B218C1E0190083760F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A6AB55B518C1E07F0083760F /* NSObject+KXEventEmitter.h */,
+				A6AB55B618C1E07F0083760F /* NSObject+KXEventEmitter.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +248,7 @@
 				A6AB559618C1DFFD0083760F /* Images.xcassets in Resources */,
 				A6AB558818C1DFFD0083760F /* InfoPlist.strings in Resources */,
 				A6AB559118C1DFFD0083760F /* Main.storyboard in Resources */,
+				A6AB55B418C1E0190083760F /* KXCollection.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +269,7 @@
 			files = (
 				A6AB559418C1DFFD0083760F /* KXViewController.m in Sources */,
 				A6AB558A18C1DFFD0083760F /* main.m in Sources */,
+				A6AB55B718C1E07F0083760F /* NSObject+KXEventEmitter.m in Sources */,
 				A6AB558E18C1DFFD0083760F /* KXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +435,12 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "KXEventEmitterTests/KXEventEmitterTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -436,6 +460,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KXEventEmitter/KXEventEmitter-Prefix.pch";
 				INFOPLIST_FILE = "KXEventEmitterTests/KXEventEmitterTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
