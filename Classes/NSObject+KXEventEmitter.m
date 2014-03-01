@@ -84,6 +84,11 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
     NSString *name = [not name];
     BOOL once = [[[self onceDictionary] objectForKey:name] boolValue];
     id handler = [[self handlerDictionary] objectForKey:name];
+    if (once) {
+        [[self onceDictionary] removeObjectForKey:name];
+        [[self handlerDictionary] removeObjectForKey:name];
+        [self kx_off:name];
+    }
     if ([handler isKindOfClass:[NSString class]]) {
         // sel
         SEL sel = NSSelectorFromString(handler);
@@ -92,11 +97,6 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
         // block
         KXEventEmitterHandler _handler = (KXEventEmitterHandler)handler;
         _handler(not);
-    }
-    if (once) {
-        [[self onceDictionary] removeObjectForKey:name];
-        [[self handlerDictionary] removeObjectForKey:name];
-        [self kx_off:name];
     }
 }
 
