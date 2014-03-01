@@ -12,19 +12,19 @@ typedef void (^KXEventEmitterHandler)(NSNotification* n);
 
 @interface NSObject (KXEventEmitter)
 
-- (void)on:(NSString*)event handler:(KXEventEmitterHandler)handler;
-- (void)on:(NSString*)event handler:(KXEventEmitterHandler)handler from:(id)from;
-- (void)on:(NSString*)event selector:(SEL)selector;
-- (void)on:(NSString*)event selector:(SEL)selector from:(id)from;
-- (void)once:(NSString*)event handler:(KXEventEmitterHandler)handler;
-- (void)once:(NSString*)event handler:(KXEventEmitterHandler)handler from:(id)from;
-- (void)once:(NSString*)event selector:(SEL)selector;
-- (void)once:(NSString*)event selector:(SEL)selector from:(id)from;
+- (void)kx_on:(NSString*)event handler:(KXEventEmitterHandler)handler;
+- (void)kx_on:(NSString*)event handler:(KXEventEmitterHandler)handler from:(id)from;
+- (void)kx_on:(NSString*)event selector:(SEL)selector;
+- (void)kx_on:(NSString*)event selector:(SEL)selector from:(id)from;
+- (void)kx_once:(NSString*)event handler:(KXEventEmitterHandler)handler;
+- (void)kx_once:(NSString*)event handler:(KXEventEmitterHandler)handler from:(id)from;
+- (void)kx_once:(NSString*)event selector:(SEL)selector;
+- (void)kx_once:(NSString*)event selector:(SEL)selector from:(id)from;
 
-- (void)off:(NSString*)event;
-- (void)off;
+- (void)kx_off:(NSString*)event;
+- (void)kx_off;
 
-- (void)emit:(NSString*)event;
-- (void)emit:(NSString*)event userInfo:(NSDictionary*)userInfo;
+- (void)kx_emit:(NSString*)event;
+- (void)kx_emit:(NSString*)event userInfo:(NSDictionary*)userInfo;
 
 @end
