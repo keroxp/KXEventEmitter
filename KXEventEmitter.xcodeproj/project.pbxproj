@@ -21,7 +21,6 @@
 		A6AB559F18C1DFFD0083760F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6AB558118C1DFFD0083760F /* UIKit.framework */; };
 		A6AB55A718C1DFFD0083760F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6AB55A518C1DFFD0083760F /* InfoPlist.strings */; };
 		A6AB55A918C1DFFD0083760F /* KXEventEmitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6AB55A818C1DFFD0083760F /* KXEventEmitterTests.m */; };
-		A6AB55B418C1E0190083760F /* KXCollection.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A6AB55B318C1E0190083760F /* KXCollection.podspec */; };
 		A6AB55B718C1E07F0083760F /* NSObject+KXEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A6AB55B618C1E07F0083760F /* NSObject+KXEventEmitter.m */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +54,6 @@
 		A6AB55A418C1DFFD0083760F /* KXEventEmitterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KXEventEmitterTests-Info.plist"; sourceTree = "<group>"; };
 		A6AB55A618C1DFFD0083760F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6AB55A818C1DFFD0083760F /* KXEventEmitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KXEventEmitterTests.m; sourceTree = "<group>"; };
-		A6AB55B318C1E0190083760F /* KXCollection.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KXCollection.podspec; sourceTree = "<group>"; };
 		A6AB55B518C1E07F0083760F /* NSObject+KXEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KXEventEmitter.h"; sourceTree = "<group>"; };
 		A6AB55B618C1E07F0083760F /* NSObject+KXEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KXEventEmitter.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				A6AB55B218C1E0190083760F /* Classes */,
-				A6AB55B318C1E0190083760F /* KXCollection.podspec */,
 				A6AB558318C1DFFD0083760F /* KXEventEmitter */,
 				A6AB55A218C1DFFD0083760F /* KXEventEmitterTests */,
 				A6AB557C18C1DFFD0083760F /* Frameworks */,
@@ -248,7 +245,6 @@
 				A6AB559618C1DFFD0083760F /* Images.xcassets in Resources */,
 				A6AB558818C1DFFD0083760F /* InfoPlist.strings in Resources */,
 				A6AB559118C1DFFD0083760F /* Main.storyboard in Resources */,
-				A6AB55B418C1E0190083760F /* KXCollection.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +487,7 @@
 				A6AB55AE18C1DFFD0083760F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A6AB55AF18C1DFFD0083760F /* Build configuration list for PBXNativeTarget "KXEventEmitterTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +496,7 @@
 				A6AB55B118C1DFFD0083760F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

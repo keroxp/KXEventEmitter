@@ -42,8 +42,13 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_on:(NSString *)event handler:(KXEventEmitterHandler)handler from:(id)from
 {
+    [self kx_on:event handler:handler from:from center:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_on:(NSString *)event handler:(KXEventEmitterHandler)handler from:(id)from center:(NSNotificationCenter *)center
+{
     [[self handlerDictionary] setObject:[handler copy] forKey:event];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_notificationProxy:) name:event object:from];
+    [center addObserver:self selector:@selector(_notificationProxy:) name:event object:from];
 }
 
 - (void)kx_on:(NSString *)event selector:(SEL)selector
@@ -53,8 +58,13 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_on:(NSString *)event selector:(SEL)selector from:(id)from;
 {
+    [self kx_on:event selector:selector from:from center:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_on:(NSString *)event selector:(SEL)selector from:(id)from center:(NSNotificationCenter *)center
+{
     [[self handlerDictionary] setObject:NSStringFromSelector(selector) forKey:event];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_notificationProxy:) name:event object:from];
+    [center addObserver:self selector:@selector(_notificationProxy:) name:event object:from];
 }
 
 - (void)kx_once:(NSString *)event handler:(KXEventEmitterHandler)handler
@@ -64,8 +74,13 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_once:(NSString *)event handler:(KXEventEmitterHandler)handler from:(id)from;
 {
+    [self kx_once:event handler:handler from:from center:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_once:(NSString *)event handler:(KXEventEmitterHandler)handler from:(id)from center:(NSNotificationCenter *)center
+{
     [[self onceDictionary] setObject:@YES forKey:event];
-    [self kx_on:event handler:handler from:from];
+    [self kx_on:event handler:handler from:from center:center];
 }
 
 - (void)kx_once:(NSString *)event selector:(SEL)selector
@@ -75,8 +90,13 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_once:(NSString *)event selector:(SEL)selector from:(id)from
 {
+    [self kx_once:event selector:selector from:from center:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_once:(NSString *)event selector:(SEL)selector from:(id)from center:(NSNotificationCenter *)center
+{
     [[self onceDictionary] setObject:@YES forKey:event];
-    [self kx_on:event selector:selector from:from];
+    [self kx_on:event selector:selector from:from center:center];
 }
 
 - (void)_notificationProxy:(NSNotification*)not
@@ -102,12 +122,22 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_off
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self kx_offCenter:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_offCenter:(NSNotificationCenter *)center
+{
+    [center removeObserver:self];
 }
 
 - (void)kx_off:(NSString *)event
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:event object:nil];
+    [self kx_off:event center:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_off:(NSString *)event center:(NSNotificationCenter *)center
+{
+    [center removeObserver:self name:event object:nil];
 }
 
 - (void)kx_emit:(NSString *)event
@@ -117,7 +147,12 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_emit:(NSString *)event userInfo:(NSDictionary *)userInfo
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:event object:self userInfo:userInfo];
+    [self kx_emit:event userInfo:userInfo center:[NSNotificationCenter defaultCenter]];
+}
+
+- (void)kx_emit:(NSString *)event userInfo:(NSDictionary *)userInfo center:(NSNotificationCenter *)center
+{
+    [center postNotificationName:event object:self userInfo:userInfo];
 }
 
 @end

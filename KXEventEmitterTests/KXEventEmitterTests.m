@@ -49,5 +49,23 @@
     XCTAssert([[not name] isEqualToString:@"hoge"], );
 }
 
+- (void)testExclusiveEvent
+{
+    NSNotificationCenter *nc = [NSNotificationCenter new];
+    NSObject *emitter = [NSObject new];
+    NSObject *other = [NSObject new];
+    __block BOOL called = NO;
+    [self kx_once:@"hoge" handler:^(NSNotification *n) {
+        called = !called;
+    } from:nil center:nc];
+    [other kx_once:@"hoge" handler:^(NSNotification *n) {
+        XCTFail(@"should not be called");
+    } from:nil];
+    [emitter kx_emit:@"hoge" userInfo:nil center:nc];
+    XCTAssertTrue(called, );
+    [emitter kx_emit:@"hoge" userInfo:nil center:nc];
+    XCTAssertTrue(called, @"once");
+}
+
 
 @end
