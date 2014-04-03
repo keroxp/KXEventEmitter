@@ -11,7 +11,7 @@
 
 static const char * oncesKey = "me.keroxp.app:EventEmitterOncesKey";
 static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
-
+#define kNotificationCenterKey @"me.keroxp.app:EventEmiterNotifiactionKey"
 
 @implementation NSObject (KXEventEmitter)
 
@@ -104,10 +104,11 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
     NSString *name = [not name];
     BOOL once = [[[self onceDictionary] objectForKey:name] boolValue];
     id handler = [[self handlerDictionary] objectForKey:name];
+    NSNotificationCenter *center = [[not userInfo] objectForKey:kNotificationCenterKey];
     if (once) {
         [[self onceDictionary] removeObjectForKey:name];
         [[self handlerDictionary] removeObjectForKey:name];
-        [self kx_off:name];
+        [self kx_off:name center:center];
     }
     if ([handler isKindOfClass:[NSString class]]) {
         // sel
@@ -152,7 +153,10 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
 
 - (void)kx_emit:(NSString *)event userInfo:(NSDictionary *)userInfo center:(NSNotificationCenter *)center
 {
-    [center postNotificationName:event object:self userInfo:userInfo];
+    NSMutableDictionary *_userInfo = userInfo ? [userInfo mutableCopy] : [NSMutableDictionary new];
+    NSNotificationCenter *_center = center ?: [NSNotificationCenter defaultCenter];
+    [_userInfo setObject:_center forKey:kNotificationCenterKey];
+    [center postNotificationName:event object:self userInfo:_userInfo];
 }
 
 @end
