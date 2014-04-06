@@ -67,5 +67,32 @@
     XCTAssertTrue(called, @"once");
 }
 
+- (void)testObserve
+{
+    UIView *v = [UIView new];
+    __block BOOL called = NO;
+    [self kx_observe:v keyPath:@"tag" handler:^(id object, NSString *keyPath, NSDictionary *change) {
+        XCTAssert(object == v,);
+        XCTAssert([keyPath isEqualToString:@"tag"], );
+        XCTAssert([change[NSKeyValueChangeNewKey] unsignedIntegerValue] == 1, );
+        called = YES;
+    }];
+    v.tag = 1;
+    XCTAssertTrue(called, );
+}
+
+- (void)testObserveOnce
+{
+    UIView *v = [UIView new];
+    __block BOOL called = NO;
+    [self kx_observeOnce:v keyPath:@"tag" handler:^(id object, NSString *keyPath, NSDictionary *change) {
+        called = !called;
+    }];
+    v.tag = 1;
+    XCTAssertTrue(called, );
+    v.tag = 2;
+    XCTAssertTrue(called, );
+}
 
 @end
+

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^KXEventEmitterHandler)(NSNotification* n);
-
+typedef void (^KXEventEmitterKeyValueChangeHandler)(id object, NSString *keyPath, NSDictionary *change);
 @interface NSObject (KXEventEmitter)
 
 - (void)kx_on:(NSString*)event handler:(KXEventEmitterHandler)handler;
@@ -33,4 +33,10 @@ typedef void (^KXEventEmitterHandler)(NSNotification* n);
 - (void)kx_emit:(NSString*)event;
 - (void)kx_emit:(NSString*)event userInfo:(NSDictionary*)userInfo;
 - (void)kx_emit:(NSString*)event userInfo:(NSDictionary*)userInfo center:(NSNotificationCenter*)center;
+
+- (void)kx_observe:(id)object keyPath:(NSString*)keyPath handler:(KXEventEmitterKeyValueChangeHandler)handler;
+- (void)kx_observeOnce:(id)object keyPath:(NSString*)keyPath handler:(KXEventEmitterKeyValueChangeHandler)handler;
+- (void)kx_stopObserving:(id)object;
+- (void)kx_stopObserving:(id)object forKeyPath:(NSString*)keyPath;
+
 @end

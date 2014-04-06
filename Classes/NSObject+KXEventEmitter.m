@@ -11,6 +11,7 @@
 
 static const char * oncesKey = "me.keroxp.app:EventEmitterOncesKey";
 static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
+static const char * observingHandlersKey = "me.keroxp.app:EventEmitterObservingsKey";
 #define kNotificationCenterKey @"me.keroxp.app:EventEmiterNotifiactionKey"
 
 @implementation NSObject (KXEventEmitter)
@@ -157,6 +158,56 @@ static const char * handlersKey = "me.keroxp.app:EventEmitterHandlersKey";
     NSNotificationCenter *_center = center ?: [NSNotificationCenter defaultCenter];
     [_userInfo setObject:_center forKey:kNotificationCenterKey];
     [center postNotificationName:event object:self userInfo:_userInfo];
+}
+
+#pragma mark - KVO
+
+- (void)kx_observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    KXEventEmitterKeyValueChangeHandler handler = [objc_getAssociatedObject(object, &observingHandlersKey) objectForKey:keyPath];
+    if (handler) {
+        handler(object, keyPath, change);
+    }
+}
+
+- (void)kx_observe:(id)object keyPath:(NSString *)keyPath handler:(KXEventEmitterKeyValueChangeHandler)handler
+{
+    static const char * swizzled = "me.keroxp.app.KXEventEmitter:SwizzledKey";
+    if (![objc_getAssociatedObject(self, &swizzled) boolValue]) {
+        Method m = class_getInstanceMethod([self class], @selector(observeValueForKeyPath:ofObject:change:context:));
+        method_setImplementation(m, class_getMethodImplementation([self class], @selector(kx_observeValueForKeyPath:ofObject:change:context:)));
+        objc_setAssociatedObject(self, &swizzled, @YES, OBJC_ASSOCIATION_COPY);
+    }
+    NSMutableDictionary *handlers = objc_getAssociatedObject(object, &observingHandlersKey);
+    if (!handlers) {
+        handlers = [NSMutableDictionary new];
+        objc_setAssociatedObject(object, &observingHandlersKey, handlers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    [handlers setObject:[handler copy] forKey:keyPath];
+    [object addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)kx_observeOnce:(id)object keyPath:(NSString *)keyPath handler:(KXEventEmitterKeyValueChangeHandler)handler
+{
+    __weak typeof (self) __self = self;
+    [self kx_observe:object keyPath:keyPath handler:^(id aObject, NSString *aKeyPath, NSDictionary *aChange) {
+        if (handler) handler(aObject, aKeyPath, aChange);
+        [__self kx_stopObserving:object forKeyPath:keyPath];
+    }];
+}
+
+- (void)kx_stopObserving:(id)object
+{
+    NSArray *keys = [objc_getAssociatedObject(object, &observingHandlersKey) allKeys];
+    for (NSString *key in keys) {
+        [self kx_stopObserving:object forKeyPath:key];
+    }
+}
+
+- (void)kx_stopObserving:(id)object forKeyPath:(NSString *)keyPath
+{
+    [object removeObserver:self forKeyPath:keyPath];
+    [objc_getAssociatedObject(object, &observingHandlersKey) removeObjectForKey:keyPath];
 }
 
 @end

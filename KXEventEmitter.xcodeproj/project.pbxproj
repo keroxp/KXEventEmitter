@@ -35,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A66F813018F0F96600330137 /* KXEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXEventEmitter.h; sourceTree = "<group>"; };
 		A6AB557A18C1DFFD0083760F /* KXEventEmitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KXEventEmitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6AB557D18C1DFFD0083760F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A6AB557F18C1DFFD0083760F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -159,6 +160,7 @@
 		A6AB55B218C1E0190083760F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A66F813018F0F96600330137 /* KXEventEmitter.h */,
 				A6AB55B518C1E07F0083760F /* NSObject+KXEventEmitter.h */,
 				A6AB55B618C1E07F0083760F /* NSObject+KXEventEmitter.m */,
 			);
